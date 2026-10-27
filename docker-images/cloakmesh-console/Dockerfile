@@ -9,15 +9,18 @@
 
 ARG NODE_IMAGE=node:20-bookworm-slim
 ARG BASE_HREF=./
+# npm 源（国内可用 npmmirror 提速，可用 --build-arg 覆盖）
+ARG NPM_REGISTRY=https://registry.npmmirror.com
 
 FROM ${NODE_IMAGE} AS builder
+ARG NPM_REGISTRY=https://registry.npmmirror.com
 WORKDIR /usr/src/app
 
 # 依赖层单独缓存
 COPY package.json package-lock.json ./
 COPY version.js ./
 RUN --mount=type=cache,target=/root/.npm \
-    npm ci --omit=optional --no-audit --no-fund
+    npm ci --no-audit --no-fund --ignore-scripts --registry=${NPM_REGISTRY}
 
 COPY . .
 RUN node ./scripts/check-route-segments.mjs \
