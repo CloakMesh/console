@@ -1,7 +1,7 @@
 {
-  "name": "io.netfoundry.zac",
+  "name": "io.cloakmesh.console",
   "version": "4.7.1",
-  "description": "Ziti Administration Console",
+  "description": "CloakMesh 管理控制台（基于 OpenZiti ZAC，Apache-2.0）",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -54,9 +54,9 @@
     "ziti"
   ],
   "author": {
-    "name": "NetFoundry",
+    "name": "aiuc-labs",
     "url": "http://openziti.io",
-    "email": "openziti@netfoundry.io"
+    "email": "labs@aiuc.cc"
   },
   "license": "Apache-2.0",
   "optionalDependencies": {

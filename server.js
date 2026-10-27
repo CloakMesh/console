@@ -42,6 +42,26 @@
  *   ZITI_IDENTITY_FILE / ZITI_SERVICE_NAME   serve over a Ziti service instead of TCP
  */
 
+/*
+ * CloakMesh 品牌层：CLOAKMESH_* 前缀桥接
+ *
+ * 对外只暴露 CLOAKMESH_* 变量，上游 server.js 读取的仍是 ZAC_* / ZITI_*。
+ * 在模块体最早位置做一次单向映射（已存在的原变量优先，不覆盖），
+ * 因此无需改动 upstream 的任何 process.env 读取点。
+ *
+ * 例：CLOAKMESH_CONTROLLER_URLS → ZAC_CONTROLLER_URLS（同时映射 ZITI_CONTROLLER_URLS，无副作用）
+ */
+const CLOAKMESH_ENV_PREFIX = 'CLOAKMESH_';
+for (const [key, value] of Object.entries(process.env)) {
+    if (!key.startsWith(CLOAKMESH_ENV_PREFIX)) continue;
+    const suffix = key.slice(CLOAKMESH_ENV_PREFIX.length);
+    if (!suffix) continue;
+    for (const prefix of ['ZAC_', 'ZITI_']) {
+        const target = prefix + suffix;
+        if (process.env[target] === undefined) process.env[target] = value;
+    }
+}
+
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
