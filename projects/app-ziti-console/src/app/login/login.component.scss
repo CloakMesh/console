@@ -1,342 +1,322 @@
-.login-page {
-  background-color: var(--background);
-  font-family: 'Open Sans';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+/* CloakMesh 登录页样式 —— 版式对齐 KingMoat WAF 控制台登录页 */
+:host {
+    display: block;
+}
 
-  .login-center-column {
-    height: calc(100% - 30px);
+.cm-login {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    background: var(--km-bg, #070b14);
+    color: var(--km-txt, #e6edf7);
+    overflow: auto;
+    font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+}
+
+/* ---------- 左：品牌区 ---------- */
+.cm-login-brand {
+    flex: 1.1;
+    padding: 56px 58px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
+    gap: 26px;
+    background:
+        radial-gradient(900px 520px at 20% 24%, rgba(34, 211, 238, .16), transparent 62%),
+        var(--km-side-grad, linear-gradient(180deg, #0a101d 0%, #080d18 100%));
+    border-right: 1px solid var(--km-line, #1b2942);
+}
 
-  input {
-    border-radius: 0.4375rem !important;
-    webkit-box-shadow: unset !important;
-    height: calc(var(--defaultInputHeight) + .25rem);
-  }
-
-  .gradientbg {
-    position: absolute;
-    left: 0;
-    right: 0;
-    transform-origin: 0 60%;
-    height: 75vh;
-    background: -webkit-linear-gradient(354deg, var(--secondaryColor), var(--primaryColor) 105%);
-    transform: skewY(342deg);
-    margin-top: -1rem;
-  }
-
-  .right-rect {
-    position: absolute;
-    height: 2.0625rem;
-    width: 16%;
-    bottom: -0.9375rem;
-    right: 0;
-    background-color: var(--secondaryColor);
-    box-shadow: 0 0.3125rem 1.5625rem 0 rgb(0 0 0 / 20%);
-  }
-
-  .left-rect {
-    position: absolute;
-    height: 2.0625rem;
-    width: 16%;
-    bottom: -0.9375rem;
-    left: 0;
-    background-color:  var(--primaryColor);
-    box-shadow: 0 0.3125rem 1.5625rem 0 rgb(0 0 0 / 20%);
-  }
-
-  .splash-page-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
+.cm-brand-head {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 90%;
+    gap: 14px;
+}
 
-    lib-selector-input {
-      width: 100%;
+.cm-logo {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+}
+
+.cm-brand-name {
+    font-size: 33px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    background: var(--km-grad, linear-gradient(135deg, #3b82f6, #22d3ee));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.15;
+}
+
+.cm-brand-slogan {
+    font-size: 15px;
+    color: var(--km-txt-2, #8b9bb4);
+    margin-top: 2px;
+}
+
+.cm-feats {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 13px;
+
+    li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        color: var(--km-txt-2, #8b9bb4);
+        font-size: 13.5px;
+        line-height: 1.6;
+        max-width: 520px;
     }
 
-    .splash-page-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 32.5rem;
-      background-color: rgb(236, 238, 242);
-      border-radius: var(--modalBorderRadius);
-      padding: var(--paddingXXXL);
-      box-shadow: 0 0.3125rem 1.5625rem rgba(0, 0, 0, 0.2);
-      position: relative;
-      gap: var(--gapXL);
-
-      &.noControllers {
-        max-width: fit-content;
-      }
+    i {
+        flex: 0 0 22px;
+        height: 22px;
+        border-radius: 7px;
+        display: grid;
+        place-items: center;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 700;
+        color: #fff;
+        background: var(--km-grad, linear-gradient(135deg, #3b82f6, #22d3ee));
     }
+}
 
-    .ziti-logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--gapLarge);
+.cm-foot {
+    font-size: 12px;
+    color: var(--km-txt-3, #5b6b85);
+    line-height: 1.7;
+}
 
-      .ziti-logo {
-        background-image: url(/assets/svgs/ziti-logo.svg);
-        background-size: 100%;
-        height: 5.5rem;
-        width: 5.5rem;
-        margin-top: -.25rem;
-      }
-    }
-    .ziti-logo-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-
-      a {
-        color: var(--primaryColor);
-        &:hover {
-          text-decoration: underline !important;
-        }
-      }
-
-      .title-text-row {
-        color: var(--primaryColor) !important;
-        filter: brightness(var(--brightnessDark));
-        opacity: 1;
-        font-family: Russo One, Arial, sans-serif;
-        font-size: 3rem;
-        font-weight: 400 !important;
-        margin: 0 !important;
-        text-align: center;
-
-        &.title-top-text {
-          font-size: 2.75rem !important;
-          line-height: 2.25rem;
-          font-variant: small-caps;
-          font-size-adjust: 0.47;
-        }
-        &.title-bottom-text {
-          display: flex;
-          justify-content: flex-start;
-          align-items: baseline;
-          gap: var(--gapSmall);
-          font-size: 1.275rem;
-          .nf-name-text {
-            font-variant: small-caps;
-            font-size-adjust: 0.47;
-            font-size: 1.475rem;
-          }
-        }
-      }
-    }
-
-    .buttons-container {
-      width: 100%;
-
-      .login-button {
-        width: 100%;
-        text-transform: uppercase;
-      }
-    }
-
-    .welcome-text {
-      font-size: 1.325rem;
-    }
-
-    .error-message {
-      display: flex;
-      position: relative;
-      width: 100%;
-      justify-content: center;
-      color: var(--red);
-      font-weight: 600;
-      margin-top: -1rem;
-      text-align: center;
-
-      &.error-message-placeholder {
-        opacity: 1;
-      }
-    }
-
-    .username-pass-container {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      gap: var(--gapXL);
-    }
-
-    .input-fields-container {
-      width: 100%;
-      margin-bottom: var(--marginMedium);
-      position: relative;
-      margin-top: -1rem;
-
-      .input-field-label {
-        font-size: 1rem;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-    }
-
-    .credential-field {
-      font-size: 1rem;
-    }
-
-    .username-pass-container {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      gap: var(--gapXL);
-    }
-  }
-
-  .no-controllers-warning {
+/* ---------- 右：登录卡 ---------- */
+.cm-login-panel {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    gap: var(--gapSmall);
-    background-color: var(--lightRed);
-    border-radius: 6.4px;
-    border-left-color: var(--red);
-    border-left-style: solid;
-    border-left-width: 5px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.625rem 0.625rem 0px;
-    box-sizing: border-box;
-    color: var(--tableText);
-    font-family: sans-serif;
-    font-weight: 400;
-    margin-top: var(--marginXL);
-    margin-bottom: var(--marginXL);
-    padding: var(--paddingXL);
-    text-rendering: optimizelegibility;
-    min-width: 37.5rem;
-    width: fit-content;
-    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: radial-gradient(700px 420px at 80% 30%, rgba(59, 130, 246, .12), transparent 60%);
+}
 
-    .warning-title {
-      font-size: 1rem;
+.cm-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 34px 32px 30px;
+    border-radius: 16px;
+    background: rgba(17, 27, 48, .72);
+    border: 1px solid var(--km-line, #1b2942);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+    backdrop-filter: blur(16px);
+}
+
+.cm-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.cm-card-desc {
+    font-size: 12.5px;
+    color: var(--km-txt-2, #8b9bb4);
+    margin-bottom: 22px;
+}
+
+/* ---------- 表单 ---------- */
+.cm-field,
+.cm-fields {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.cm-field label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--km-txt-2, #8b9bb4);
+}
+
+.cm-field input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 14px;
+    color: var(--km-txt, #e6edf7);
+    background: var(--km-panel-2, #111b30);
+    border: 1px solid var(--km-line, #1b2942);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+
+    &::placeholder {
+        color: var(--km-txt-3, #5b6b85);
     }
 
-    .env-var-text {
-      color: var(--tableText);
+    &:focus {
+        border-color: var(--km-blue, #3b82f6);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, .18);
+    }
+}
+
+.cm-selector {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.cm-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.cm-btn {
+    flex: 1;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: var(--km-grad, linear-gradient(135deg, #3b82f6, #22d3ee));
+    transition: filter .15s;
+
+    &:hover:not(:disabled) {
+        filter: brightness(1.08);
+    }
+
+    &:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+}
+
+.cm-link {
+    font-size: 13px;
+    color: var(--km-blue, #3b82f6);
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.cm-error {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 12.5px;
+    color: var(--km-soft-red, #f87171);
+}
+
+.cm-disabled {
+    opacity: .55;
+    pointer-events: none;
+}
+
+/* 无控制器提示 */
+.cm-warning {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(245, 158, 11, .35);
+    background: rgba(245, 158, 11, .08);
+    font-size: 12.5px;
+    color: var(--km-txt-2, #8b9bb4);
+
+    .cm-warning-title {
+        font-weight: 700;
+        color: var(--km-soft-amber, #fbbf24);
     }
 
     code {
-      color: var(--tableText);
-      background-color: var(--stroke);
-      padding: var(--paddingSmall);
-      border-radius: .2rem;
-      width: fit-content;
+        display: block;
+        margin-top: 4px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, .35);
+        color: var(--km-cyan, #22d3ee);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 11.5px;
+        word-break: break-all;
     }
-  }
-
-  .edgecreate {
-    &.buttons {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-  }
 }
 
-.login-disabled {
-  opacity: .5;
-  pointer-events: none;
+/* 外部身份提供方 */
+.cm-idp {
+    margin-top: 22px;
 }
 
-.idp-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: fit-content;
-}
-
-.divider-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
-  .idp-divider {
-    width: 100%;
-    flex: 1 1 auto;
+.cm-divider {
     display: flex;
-    height: 0.125rem;
-    max-height: 0.125rem;
-    border-top-width: 0.125rem;
-    border-top-color: var(--stroke);
-    border-top-style: solid;
-    margin-top: var(--marginMedium);
-    margin-bottom: var(--marginMedium);
-    padding-left: var(--paddingXXL);
-    padding-right: var(--paddingXXL);
-  }
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: var(--km-txt-3, #5b6b85);
 
-  .id-divider-label {
-    margin-left: var(--marginMedium);
-    margin-right: var(--marginMedium);
-    width: fit-content;
-    text-transform: uppercase;
-    flex: 1 0 auto;
-    color: var(--formSubGroup);
-  }
+    &::before,
+    &::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--km-line, #1b2942);
+    }
 }
 
-.idp-button {
-  color: var(--tableText);
-  height: var(--defaultInputHeight);
-  border-style: solid;
-  // match the input fields' border width; without this it falls back to the CSS default
-  // (medium, ~3px) and reads noticeably thicker than the rest of the form
-  border-width: var(--inputBorderWidth);
-  border-color: var(--inputBorder);
-  border-radius: var(--inputBorderRadius);
-  vertical-align: middle;
-  text-align: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: var(--marginXL);
-  overflow: hidden;
-  transition: color 0.2s;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  font-family: "Open Sans", sans-serif;
-  text-transform: uppercase;
-  cursor: pointer;
-  width: 100%;
-  background-color: var(--background);
+.cm-idp-buttons {
+    display: grid;
+    gap: 10px;
+}
 
-  .spinner {
-    display: inline-block;
-    width: var(--spinnerSizeMedium);
-    height: var(--spinnerSizeMedium);
-    border-radius: 50%;
-    background: transparent;
-    border-top: var(--spinnerBorderTopMedium);
-    border-right: var(--spinnerBorderRightMedium);
-    border-bottom: var(--spinnerBorderBottomMedium);
-    border-left: var(--spinnerBorderLeftMedium);
-    animation: loading .5s infinite linear;
-    margin-left: var(--marginSmall);
-  }
+.cm-idp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--km-line-strong, #2a3d63);
+    color: var(--km-txt, #e6edf7);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
 
-  &:hover {
-    filter: brightness(.95);
-    background-color: var(--shaded);
-  }
-  &:active {
-    transform: translateY(1px);
-  }
+    &:hover {
+        background: var(--km-nav-grad, linear-gradient(90deg, rgba(59, 130, 246, .16), rgba(34, 211, 238, .06)));
+        border-color: var(--km-blue, #3b82f6);
+    }
+}
+
+/* 亮色主题适配 */
+:host-context(html[data-theme='light']) {
+    .cm-login {
+        background: var(--km-bg);
+        color: var(--km-txt);
+    }
+
+    .cm-card {
+        background: rgba(255, 255, 255, .92);
+        box-shadow: 0 18px 40px rgba(27, 42, 56, .12);
+    }
+
+    .cm-field input {
+        background: #fff;
+    }
+}
+
+@media (max-width: 960px) {
+    .cm-login-brand {
+        display: none;
+    }
+
+    .cm-login-panel {
+        flex: 1;
+    }
 }

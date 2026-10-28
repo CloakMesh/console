@@ -160,3 +160,6 @@ app-zac-wrapper {
 html {
   overflow-x: hidden;
 }
+
+/* CloakMesh 主题层（KingMoat 设计基线）：必须最后引入以覆盖前面所有样式 */
+@import './cloakmesh-theme.css';

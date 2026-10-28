@@ -1,0 +1,416 @@
+/* ============================================================================
+   CloakMesh 控制台主题层
+   ----------------------------------------------------------------------------
+   设计基线来自 KingMoat WAF 控制台的设计系统（web/console/src/styles.css）：
+     - 默认「暗域 Dark Matter」：#070b14 底 / #0e1626 面板 / 蓝青渐变主色
+     - 亮色「量子青 Quantum Teal」：html[data-theme="light"]
+   本文件只做视觉覆盖：不改任何模板结构、不动业务逻辑，仅重映射颜色、圆角、
+   阴影、字体与组件外观，因此与上游同步时只需要处理这一处冲突。
+   ========================================================================== */
+
+/* ---------- 1. 设计令牌（与 KingMoat 对齐） ---------- */
+:root,
+html[data-theme='dark'] {
+    --km-bg: #070b14;
+    --km-bg-2: #0a101d;
+    --km-panel: #0e1626;
+    --km-panel-2: #111b30;
+    --km-line: #1b2942;
+    --km-line-soft: #16223a;
+    --km-line-strong: #2a3d63;
+    --km-txt: #e6edf7;
+    --km-txt-2: #8b9bb4;
+    --km-txt-3: #5b6b85;
+    --km-blue: #3b82f6;
+    --km-cyan: #22d3ee;
+    --km-green: #10b981;
+    --km-amber: #f59e0b;
+    --km-red: #ef4444;
+    --km-violet: #8b5cf6;
+    --km-grad: linear-gradient(135deg, #3b82f6 0%, #22d3ee 100%);
+    --km-side-grad: linear-gradient(180deg, #0a101d 0%, #080d18 100%);
+    --km-card-grad: linear-gradient(160deg, #0d1424, #111c33);
+    --km-nav-grad: linear-gradient(90deg, rgba(59, 130, 246, .16), rgba(34, 211, 238, .06));
+    --km-nav-tx: #ffffff;
+    --km-topbar-bg: rgba(10, 16, 29, .85);
+    --km-soft-blue: #93c5fd;
+    --km-soft-green: #34d399;
+    --km-soft-red: #f87171;
+    --km-soft-amber: #fbbf24;
+    --km-radius: 12px;
+    --km-sidebar-w: 224px;
+    --km-topbar-h: 56px;
+    --km-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+}
+
+html[data-theme='light'] {
+    --km-bg: #f4f6f8;
+    --km-bg-2: #edf1f4;
+    --km-panel: #ffffff;
+    --km-panel-2: #f6f9fa;
+    --km-line: #e3e9ef;
+    --km-line-soft: #eaeff4;
+    --km-line-strong: #c9d4de;
+    --km-txt: #1b2a38;
+    --km-txt-2: #5e6f82;
+    --km-txt-3: #93a3b3;
+    --km-blue: #0fae8e;
+    --km-cyan: #0d9488;
+    --km-green: #0a9e6b;
+    --km-amber: #d97706;
+    --km-red: #dc2626;
+    --km-violet: #7c3aed;
+    --km-grad: linear-gradient(135deg, #0fae8e 0%, #06b6d4 100%);
+    --km-side-grad: linear-gradient(180deg, #ffffff 0%, #f6f9fa 100%);
+    --km-card-grad: linear-gradient(160deg, #ffffff, #f1f6f8);
+    --km-nav-grad: linear-gradient(90deg, rgba(15, 174, 142, .13), rgba(6, 182, 212, .06));
+    --km-nav-tx: #0b8a70;
+    --km-topbar-bg: rgba(255, 255, 255, .86);
+    --km-soft-blue: #0e7490;
+    --km-soft-green: #047857;
+    --km-soft-red: #dc2626;
+    --km-soft-amber: #b45309;
+    --km-shadow: 0 8px 24px rgba(27, 42, 56, .10);
+}
+
+/* ---------- 2. 重映射 ZAC 自身的样式变量 ---------- */
+:root {
+    --primary: var(--km-blue);
+    --primaryColor: var(--km-blue);
+    --primaryColorShadowLight: rgba(59, 130, 246, .12);
+    --secondary: var(--km-red);
+    --secondaryColor: var(--km-red);
+    --navigation: var(--km-panel);
+    --navigationTransparent0: transparent;
+    --navigationTransparent1: var(--km-panel);
+    --highlighted: var(--km-amber);
+    --menu: var(--km-txt-2);
+    --inputBorder: var(--km-line);
+    --icon: var(--km-txt-3);
+    --stroke: var(--km-line);
+    --shaded: var(--km-panel-2);
+    --background: var(--km-bg);
+    --placeholder: var(--km-txt-3);
+    --text: var(--km-txt);
+    --subText: var(--km-txt-2);
+    --shadow: 0 0 0 1px var(--km-line);
+    --shadowLarge: var(--km-shadow);
+    --shadowColor: var(--km-line);
+    --hoverBackground: var(--km-panel-2);
+    --redText: var(--km-soft-red);
+    --boxShadow: rgba(0, 0, 0, .3);
+}
+
+/* ---------- 3. 基础排版与背景 ---------- */
+html,
+body {
+    background: var(--km-bg) !important;
+    color: var(--km-txt) !important;
+    font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif !important;
+    font-size: 14px;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--km-line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--km-line-strong);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+a {
+    color: var(--km-blue);
+}
+
+/* ---------- 4. 顶栏 / 侧边导航 ---------- */
+.header-bar,
+.top-bar,
+mat-toolbar,
+.mat-toolbar {
+    background: var(--km-topbar-bg) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--km-line) !important;
+    color: var(--km-txt) !important;
+}
+
+.navigation-container,
+.side-nav,
+.nav-container,
+.nav-drawer {
+    background: var(--km-side-grad) !important;
+    border-right: 1px solid var(--km-line) !important;
+}
+
+.nav-link,
+.nav-item,
+.mat-list-item {
+    color: var(--km-txt-2) !important;
+    border-radius: 10px;
+    margin: 2px 8px;
+}
+
+.nav-link:hover,
+.nav-item:hover,
+.mat-list-item:hover {
+    background: var(--km-nav-grad) !important;
+    color: var(--km-nav-tx) !important;
+}
+
+.nav-link.active,
+.nav-item.active,
+.selected-nav {
+    background: var(--km-nav-grad) !important;
+    color: var(--km-nav-tx) !important;
+    font-weight: 600;
+}
+
+/* ---------- 5. 面板 / 卡片 ---------- */
+.card,
+.panel,
+.mat-card,
+.mat-mdc-card,
+.form-container,
+.list-page-container {
+    background: var(--km-card-grad) !important;
+    border: 1px solid var(--km-line) !important;
+    border-radius: var(--km-radius) !important;
+    box-shadow: none !important;
+    color: var(--km-txt) !important;
+}
+
+.card-title,
+.panel-title,
+.section-title {
+    color: var(--km-txt) !important;
+    font-weight: 600;
+}
+
+.divider,
+hr {
+    border-color: var(--km-line) !important;
+}
+
+/* ---------- 6. 表格（ag-grid + Material 表格） ---------- */
+.ag-theme-alpine,
+.ag-theme-alpine-dark {
+    --ag-background-color: var(--km-panel);
+    --ag-foreground-color: var(--km-txt);
+    --ag-header-background-color: var(--km-panel-2);
+    --ag-header-foreground-color: var(--km-txt-2);
+    --ag-border-color: var(--km-line);
+    --ag-row-border-color: var(--km-line-soft);
+    --ag-odd-row-background-color: transparent;
+    --ag-row-hover-color: var(--km-nav-grad);
+    --ag-selected-row-background-color: rgba(59, 130, 246, .14);
+    --ag-font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --ag-font-size: 13px;
+    --ag-input-focus-border-color: var(--km-blue);
+}
+
+.ag-theme-alpine .ag-header-cell-text,
+.ag-theme-alpine-dark .ag-header-cell-text {
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+table.mat-mdc-table,
+.mat-table,
+.table {
+    background: transparent !important;
+    color: var(--km-txt) !important;
+}
+
+.mat-mdc-header-row,
+.mat-header-row,
+thead tr {
+    background: var(--km-panel-2) !important;
+}
+
+.mat-mdc-header-cell,
+.mat-header-cell,
+th {
+    color: var(--km-txt-2) !important;
+    border-bottom: 1px solid var(--km-line) !important;
+    font-weight: 600;
+}
+
+.mat-mdc-cell,
+td {
+    color: var(--km-txt) !important;
+    border-bottom: 1px solid var(--km-line-soft) !important;
+}
+
+.mat-mdc-row:hover,
+tbody tr:hover {
+    background: var(--km-nav-grad) !important;
+}
+
+/* ---------- 7. 按钮 ---------- */
+button,
+.button,
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.p-button {
+    border-radius: 10px !important;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.primary-button,
+.button.button-primary,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary,
+.p-button:not(.p-button-outlined):not(.p-button-text) {
+    background: var(--km-grad) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.primary-button:hover,
+.mat-mdc-raised-button.mat-primary:hover {
+    filter: brightness(1.08);
+}
+
+.mat-mdc-button,
+.mat-mdc-outlined-button,
+.p-button.p-button-outlined,
+.secondary-button {
+    color: var(--km-txt) !important;
+    border: 1px solid var(--km-line-strong) !important;
+    background: transparent !important;
+}
+
+.linkButton,
+.link-button {
+    color: var(--km-blue) !important;
+}
+
+/* ---------- 8. 输入框 / 表单 ---------- */
+input,
+textarea,
+select,
+.mat-mdc-form-field,
+.mat-mdc-input-element,
+.p-inputtext {
+    color: var(--km-txt) !important;
+    font-family: inherit;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+select,
+.mat-mdc-input-element,
+.p-inputtext {
+    background: var(--km-panel-2) !important;
+    border: 1px solid var(--km-line) !important;
+    border-radius: 10px !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.mat-mdc-input-element:focus,
+.p-inputtext:focus {
+    border-color: var(--km-blue) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, .18) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--km-txt-3) !important;
+}
+
+label,
+.field-label,
+.userlogin {
+    color: var(--km-txt-2) !important;
+    font-weight: 500;
+}
+
+/* Material 表单字段外观 */
+.mdc-text-field--outlined .mdc-notched-outline__leading,
+.mdc-text-field--outlined .mdc-notched-outline__notch,
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
+    border-color: var(--km-line) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+    border-color: var(--km-blue) !important;
+}
+
+/* ---------- 9. 弹窗 / 抽屉 / 提示 ---------- */
+.mat-mdc-dialog-container,
+.mat-dialog-container,
+.p-dialog,
+.modal-content {
+    background: var(--km-panel) !important;
+    color: var(--km-txt) !important;
+    border: 1px solid var(--km-line) !important;
+    border-radius: var(--km-radius) !important;
+}
+
+.mat-mdc-dialog-title,
+.mat-dialog-title,
+.p-dialog-title {
+    color: var(--km-txt) !important;
+    font-weight: 700;
+}
+
+.cdk-overlay-dark-backdrop {
+    background: rgba(3, 6, 12, .66) !important;
+    backdrop-filter: blur(2px);
+}
+
+.mat-mdc-snack-bar-container,
+.p-toast .p-toast-message {
+    background: var(--km-panel-2) !important;
+    color: var(--km-txt) !important;
+    border: 1px solid var(--km-line) !important;
+    border-radius: 10px !important;
+}
+
+/* ---------- 10. 状态色（沿用 KingMoat 语义色） ---------- */
+.status-online,
+.status-connected,
+.healthy,
+.badge-success {
+    color: var(--km-soft-green) !important;
+}
+
+.status-offline,
+.status-disconnected,
+.badge-danger {
+    color: var(--km-soft-red) !important;
+}
+
+.status-warning,
+.badge-warning {
+    color: var(--km-soft-amber) !important;
+}
+
+.chip,
+.tag,
+.attribute-chip {
+    background: var(--km-panel-2) !important;
+    border: 1px solid var(--km-line) !important;
+    color: var(--km-txt-2) !important;
+    border-radius: 999px;
+}
