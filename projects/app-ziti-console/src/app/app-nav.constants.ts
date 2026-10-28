@@ -23,9 +23,15 @@ export const ZITI_CONSOLE_NAVIGATOR = {
             label: '',
             menuItems: [
                 {
-                    label: 'Dashboard',
-                    route: URLS.ZITI_DASHBOARD,
+                    label: '概览',
+                    route: '/overview',
                     iconClass: 'icon-dashboard',
+                    selectedRoutes: ['/overview']
+                },
+                {
+                    label: '网络地图',
+                    route: URLS.ZITI_DASHBOARD,
+                    iconClass: 'icon-globe',
                     selectedRoutes: [URLS.ZITI_DASHBOARD]
                 }
             ]

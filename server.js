@@ -272,6 +272,11 @@ function buildHelmetOptions() {
                 frameAncestors: ["'self'"],
                 mediaSrc: ["'self'", 'data:', 'blob:', 'https:'],
                 connectSrc: ["'self'"].concat(idp),
+                // 纯 HTTP 部署（如内网 http://host:8080）时，helmet 默认的
+                // upgrade-insecure-requests 会把所有子资源改写成 https，
+                // 结果是资源全部 ERR_SSL_PROTOCOL_ERROR、SPA 白屏。
+                // 默认关闭，需要强制 HTTPS 时设置 ZAC_FORCE_HTTPS=true。
+                upgradeInsecureRequests: String(process.env.ZAC_FORCE_HTTPS).toLowerCase() === 'true' ? [] : null,
             },
         },
         frameguard: { action: 'SAMEORIGIN' },

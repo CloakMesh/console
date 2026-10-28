@@ -1,0 +1,58 @@
+<div class="cm-page">
+  <div class="cm-page-head">
+    <div>
+      <div class="cm-page-title">概览</div>
+      <div class="cm-page-sub">零信任网络整体运行状态 · 每 30 秒自动刷新<ng-container *ngIf="lastUpdated"> · 更新于 {{lastUpdated}}</ng-container></div>
+    </div>
+    <button class="cm-refresh" (click)="refresh()" [disabled]="loading">{{ loading ? '刷新中…' : '刷新' }}</button>
+  </div>
+
+  <div class="cm-error" *ngIf="error">{{error}}</div>
+
+  <div class="km-cards cm-mb">
+    <div class="km-stat" *ngFor="let s of stats" [ngClass]="s.tone">
+      <div class="num">{{s.value}}</div>
+      <div class="lbl">{{s.label}}</div>
+      <div class="km-delta">{{s.hint}}</div>
+    </div>
+  </div>
+
+  <div class="cm-grid">
+    <section class="cm-panel">
+      <header class="cm-panel-head">
+        <span class="cm-panel-title">边缘路由器</span>
+        <span class="cm-muted">{{routers.length}} 台</span>
+      </header>
+      <div class="cm-empty" *ngIf="!routers.length">暂无数据</div>
+      <ul class="cm-rows" *ngIf="routers.length">
+        <li *ngFor="let r of routers">
+          <span class="cm-dot" [class.on]="r.online"></span>
+          <span class="cm-row-name">{{r.name}}</span>
+          <span class="cm-pill" [class.online]="r.online" [class.offline]="!r.online">{{ r.online ? '在线' : '离线' }}</span>
+          <span class="cm-muted cm-right">开销 {{r.cost}}</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="cm-panel">
+      <header class="cm-panel-head">
+        <span class="cm-panel-title">最近会话</span>
+        <span class="cm-muted">{{sessions.length}} 条</span>
+      </header>
+      <div class="cm-empty" *ngIf="!sessions.length">暂无会话</div>
+      <table class="cm-table" *ngIf="sessions.length">
+        <thead>
+          <tr><th>服务</th><th>身份</th><th>类型</th><th>建立时间</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of sessions">
+            <td class="cm-ellipsis">{{s.service}}</td>
+            <td class="cm-ellipsis">{{s.identity}}</td>
+            <td>{{s.type}}</td>
+            <td class="cm-muted">{{s.created}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>

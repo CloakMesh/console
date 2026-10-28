@@ -21,6 +21,7 @@ import {AppComponent} from './app.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {LoginComponent} from './login/login.component';
+import {OverviewComponent} from './overview/overview.component';
 import {FormsModule} from "@angular/forms";
 import { OAuthModule } from 'angular-oauth2-oidc';
 import {environment} from "./environments/environment";
@@ -122,7 +123,8 @@ export function initializeApp(settingsService: any, injector: Injector) {
 @NgModule({ declarations: [
         AppComponent,
         PageNotFoundComponent,
-        LoginComponent
+        LoginComponent,
+        OverviewComponent
     ],
     exports: [],
     bootstrap: [AppComponent], imports: [BrowserModule,

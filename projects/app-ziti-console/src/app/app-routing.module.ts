@@ -15,6 +15,7 @@
 */
 
 import {NgModule} from '@angular/core';
+import {OverviewComponent} from './overview/overview.component';
 import {RouterModule, Routes, mapToCanActivate} from '@angular/router';
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {LoginComponent} from "./login/login.component";
@@ -79,7 +80,7 @@ const betaFeaturesMatch = () => localStorage.getItem('betaFeatures') === 'on';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'overview',
     pathMatch: 'full'
   },
   {
@@ -98,6 +99,12 @@ const routes: Routes = [
   {
     path: 'auth/callback',
     redirectTo: 'login'
+  },
+  {
+    path: 'overview',
+    component: OverviewComponent,
+    canActivate: mapToCanActivate([AuthenticationGuard]),
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'dashboard',

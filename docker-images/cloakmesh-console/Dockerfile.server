@@ -1,0 +1,61 @@
+# syntax=docker/dockerfile:1
+#
+# CloakMesh 管理控制台镜像（Node 服务版）
+#
+# 与 nginx 静态版的区别：跑 ZAC 自带的 server.js —— 它把 SPA 与控制器 API 反代在
+# 同一个 origin 下，用 httpOnly cookie 保存 ziti 令牌，因此登录、设置持久化、
+# 控制器管理、外部 IdP 登录等功能才完整可用（静态托管只能做只读 SPA）。
+#
+# 构建（仓库根目录）：
+#   docker build -f docker-images/cloakmesh-console/Dockerfile.server -t cloakmesh/console:server .
+
+ARG NODE_IMAGE=node:20-bookworm-slim
+ARG NPM_REGISTRY=https://registry.npmmirror.com
+
+# ---------- 1. 构建 SPA ----------
+FROM ${NODE_IMAGE} AS builder
+ARG NPM_REGISTRY
+WORKDIR /usr/src/app
+
+COPY package.json package-lock.json ./
+COPY version.js ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --no-audit --no-fund --ignore-scripts --registry=${NPM_REGISTRY}
+
+COPY . .
+RUN node ./scripts/check-route-segments.mjs \
+ && npx ng build ziti-console-lib \
+ && npx ng build ziti-console --base-href ./ --configuration production \
+ && node ./scripts/rewrite-bundle-css.mjs
+
+# ---------- 2. 运行期依赖 ----------
+FROM ${NODE_IMAGE} AS deps
+ARG NPM_REGISTRY
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+# ziti-console-lib 是 file: 依赖，必须先有构建产物，否则 npm ci 会失败
+COPY --from=builder /usr/src/app/dist/ziti-console-lib ./dist/ziti-console-lib
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev --no-audit --no-fund --ignore-scripts --registry=${NPM_REGISTRY}
+
+# ---------- 3. 运行时 ----------
+FROM ${NODE_IMAGE}
+WORKDIR /usr/src/app
+
+ENV NODE_ENV=production \
+    PORT=1408 \
+    ZAC_LEGACY_API=true
+
+COPY --from=deps  /usr/src/app/node_modules ./node_modules
+COPY --from=builder /usr/src/app/dist/app-ziti-console ./dist/app-ziti-console
+COPY package.json server.js legacy-api.js server-edge.js run-zac.sh ./
+
+RUN mkdir -p /usr/src/app/sessions && chmod 700 /usr/src/app/sessions
+
+LABEL org.opencontainers.image.title="CloakMesh Console (server)" \
+      org.opencontainers.image.description="CloakMesh admin console with ZAC reverse-proxy server, zh-CN localized (based on OpenZiti ZAC, Apache-2.0)" \
+      org.opencontainers.image.source="https://github.com/aiuc-labs/cloakmesh-console" \
+      org.opencontainers.image.licenses="Apache-2.0"
+
+EXPOSE 1408
+CMD ["node", "server.js"]
