@@ -414,3 +414,163 @@ label,
     color: var(--km-txt-2) !important;
     border-radius: 999px;
 }
+/* ---------- 11. 内页版式：页头 / 工具栏 / 标签页 / 分页 ---------- */
+.projectable-form-wrapper .header,
+.list-page-header,
+.page-header {
+    padding: 18px 20px 0;
+    border-bottom: 1px solid var(--km-line);
+    background: linear-gradient(180deg, rgba(59, 130, 246, .05), transparent 70%);
+}
+
+.projectable-form-wrapper .header .title,
+.list-page-header .title,
+.page-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--km-txt) !important;
+    letter-spacing: .2px;
+}
+
+.projectable-form-wrapper .header .title span {
+    background: var(--km-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.projectable-form-wrapper .header .line {
+    border-color: var(--km-line) !important;
+}
+
+.projectable-form-wrapper .header .tabs .tab,
+.mat-mdc-tab,
+.mat-tab-label {
+    color: var(--km-txt-2) !important;
+    font-weight: 500;
+    border-radius: 10px 10px 0 0;
+}
+
+.projectable-form-wrapper .header .tabs .tab.selected,
+.mat-mdc-tab.mdc-tab--active,
+.mat-tab-label-active {
+    color: var(--km-nav-tx) !important;
+    background: var(--km-nav-grad) !important;
+    font-weight: 600;
+}
+
+.mat-mdc-tab-group,
+.mat-mdc-tab-header {
+    border-color: var(--km-line) !important;
+}
+
+.mat-mdc-tab-body-wrapper,
+.mat-tab-body-wrapper {
+    background: transparent !important;
+}
+
+/* 工具条（搜索/筛选/新建） */
+.list-page-header .right-buttons,
+.toolbar,
+.filter-bar {
+    background: transparent !important;
+}
+
+/* 分页器 */
+.mat-mdc-paginator,
+.mat-paginator {
+    background: transparent !important;
+    color: var(--km-txt-2) !important;
+    border-top: 1px solid var(--km-line);
+}
+
+.mat-mdc-paginator .mat-mdc-select-value,
+.mat-paginator .mat-select-value {
+    color: var(--km-txt) !important;
+}
+
+/* 空状态 */
+.empty-state,
+.no-data,
+.dataset-empty {
+    color: var(--km-txt-3) !important;
+    text-align: center;
+    padding: 40px 0;
+}
+
+/* ---------- 12. 统计卡（KingMoat .km-stat 同款，供指标类页面使用） ---------- */
+.km-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+.km-stat {
+    position: relative;
+    padding: 16px 18px;
+    border-radius: var(--km-radius);
+    border: 1px solid var(--km-line);
+    background: var(--km-card-grad);
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 3px;
+        background: var(--km-grad);
+    }
+
+    .num {
+        font-size: 26px;
+        font-weight: 800;
+        line-height: 1.15;
+        color: var(--km-txt);
+        letter-spacing: .5px;
+    }
+
+    .lbl {
+        margin-top: 4px;
+        font-size: 12.5px;
+        color: var(--km-txt-2);
+    }
+
+    .km-delta {
+        margin-top: 6px;
+        font-size: 11.5px;
+        color: var(--km-txt-3);
+    }
+}
+
+.km-stat.danger::before { background: linear-gradient(180deg, #ef4444, #f87171); }
+.km-stat.green::before  { background: linear-gradient(180deg, #10b981, #34d399); }
+.km-stat.cyan::before   { background: linear-gradient(180deg, #22d3ee, #67e8f9); }
+.km-stat.violet::before { background: linear-gradient(180deg, #8b5cf6, #a78bfa); }
+
+/* ---------- 13. 状态徽标 / 提示气泡 ---------- */
+.mat-mdc-tooltip,
+.mat-tooltip {
+    background: var(--km-panel-2) !important;
+    color: var(--km-txt) !important;
+    border: 1px solid var(--km-line) !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+}
+
+.badge,
+.status-pill,
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    border: 1px solid var(--km-line);
+    background: var(--km-panel-2);
+    color: var(--km-txt-2);
+}
+
+.pill.online  { color: var(--km-soft-green); border-color: rgba(16, 185, 129, .35); }
+.pill.offline { color: var(--km-soft-red);   border-color: rgba(239, 68, 68, .35); }
+.pill.warn    { color: var(--km-soft-amber); border-color: rgba(245, 158, 11, .35); }
