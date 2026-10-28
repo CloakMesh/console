@@ -574,3 +574,86 @@ label,
 .pill.online  { color: var(--km-soft-green); border-color: rgba(16, 185, 129, .35); }
 .pill.offline { color: var(--km-soft-red);   border-color: rgba(239, 68, 68, .35); }
 .pill.warn    { color: var(--km-soft-amber); border-color: rgba(245, 158, 11, .35); }
+
+/* ---------- 14. 补齐 ZAC 自身的布局变量（global.scss 里的浅色默认值） ----------
+   这些变量在 lib 的 global.scss 中定义为白/浅灰，是内页大面积白底、白表单的根因。
+   统一重映射到 KingMoat 令牌，注意 --white / --black 仍保留语义（按钮反白文字等），
+   所以只改「背景类」和「次要文字类」。 */
+:root {
+    --mainBackground: var(--km-bg);
+    --formBackground: var(--km-panel);
+    --backgroundMuted: var(--km-bg-2);
+    --filterBarBackground: var(--km-panel-2);
+    --filterBackgroundColor: var(--km-panel);
+    --groupText: var(--km-txt-2);
+    --headerButtonColor: var(--km-txt-2);
+    --formBase: var(--km-txt-3);
+    --formGroup: var(--km-panel-2);
+    --formSubGroup: var(--km-txt-2);
+    --dark: var(--km-panel-2);
+}
+
+/* 布局容器兜底：即使个别组件写了死值，也保证主区域是深色 */
+.main,
+.main-content-row,
+.main-content-column,
+main,
+.container,
+.page-wrapper,
+.content-wrapper,
+.form-wrapper,
+.projectable-form-wrapper {
+    background: var(--km-bg) !important;
+    color: var(--km-txt) !important;
+}
+
+/* ---------- 15. 实测补丁：内页仍显白的几个容器（按渲染扫描结果定向覆盖） ---------- */
+.side-navigator-container,
+.side-modal-container,
+header {
+    background: var(--km-side-grad) !important;
+    border-color: var(--km-line) !important;
+}
+
+.side-navigator-container .nav-item,
+.side-navigator-container .nav-link,
+.side-navigator-container a {
+    color: var(--km-txt-2) !important;
+}
+
+/* ag-grid 各层容器：grid 自带主题在暗色下仍会铺白底 */
+.ag-theme-alpine,
+.ag-theme-alpine-dark,
+.ag-theme-alpine-auto-dark,
+.ag-root-wrapper,
+.ag-body-viewport,
+.ag-center-cols-viewport,
+.ag-center-cols-container,
+.ag-pinned-left-cols-viewport,
+.ag-pinned-right-cols-viewport {
+    background: var(--km-panel) !important;
+}
+
+.ag-header,
+.ag-header-viewport {
+    background: var(--km-panel-2) !important;
+}
+
+.ag-row-even,
+.ag-row-odd {
+    background: transparent !important;
+}
+
+.ag-row-hover,
+.ag-row.ag-row-hover {
+    background: rgba(59, 130, 246, .10) !important;
+}
+
+.ag-cell,
+.ag-header-cell-text {
+    color: var(--km-txt) !important;
+}
+
+.ag-header-cell-text {
+    color: var(--km-txt-2) !important;
+}
