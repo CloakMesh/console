@@ -54,7 +54,7 @@ RUN mkdir -p /usr/src/app/sessions && chmod 700 /usr/src/app/sessions
 
 LABEL org.opencontainers.image.title="CloakMesh Console (server)" \
       org.opencontainers.image.description="CloakMesh admin console with ZAC reverse-proxy server, zh-CN localized (based on OpenZiti ZAC, Apache-2.0)" \
-      org.opencontainers.image.source="https://github.com/aiuc-labs/cloakmesh-console" \
+      org.opencontainers.image.source="https://github.com/cloakmesh/console" \
       org.opencontainers.image.licenses="Apache-2.0"
 
 EXPOSE 1408
