@@ -2,7 +2,7 @@
 
 CloakMesh 的 Web 管理控制台，fork 自 [OpenZiti ZAC](https://github.com/openziti/ziti-console)（Apache License 2.0）。
 
-> 国内网络可用 Gitee 镜像：`https://gitee.com/cloakmash/console.git`
+> 国内网络可用 Gitee 镜像：`https://gitee.com/cloakmesh/console.git`
 
 > **上游说明**：本仓库保留上游全部历史与许可。核心能力（身份、服务、策略、路由器、证书、可视化）完全来自上游；CloakMesh 的差异是**简体中文界面**与**品牌化**。
 
